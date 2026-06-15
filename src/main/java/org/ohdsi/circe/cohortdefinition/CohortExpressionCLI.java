@@ -1,5 +1,6 @@
 package org.ohdsi.circe.cohortdefinition;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
@@ -9,7 +10,8 @@ import org.ohdsi.sql.SqlRender;
 public class CohortExpressionCLI {
 
   public static void main(String[] args) throws Exception {
-    ObjectMapper mapper = new ObjectMapper();
+    ObjectMapper mapper = new ObjectMapper()
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8.name());
     StringBuilder sb = new StringBuilder();
     while (scanner.hasNextLine()) {
