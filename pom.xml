@@ -81,7 +81,36 @@
             <exclude>**/IT*.java</exclude>
           </excludes>
         </configuration>
-      </plugin>      
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals><goal>shade</goal></goals>
+            <configuration>
+              <finalName>circe-cli</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>org.ohdsi.circe.cohortdefinition.CohortExpressionCLI</mainClass>
+                </transformer>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -143,7 +172,6 @@
       <groupId>org.ohdsi.sql</groupId>
       <artifactId>SqlRender</artifactId>
       <version>1.6.8</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.opentable.components</groupId>
