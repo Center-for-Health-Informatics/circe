@@ -30,7 +30,7 @@ public class CohortExpressionCLI {
     options.targetTable = input.get("targetTable").asText();
     options.resultSchema = input.get("resultSchema").asText();
     options.vocabularySchema = input.get("vocabularySchema").asText();
-    options.generateStats = false;
+    options.generateStats = input.has("generateStats") && input.get("generateStats").asBoolean(false);
 
     String sql = new CohortExpressionQueryBuilder().buildExpressionQuery(expression, options);
 
